@@ -1,16 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
-const knex = require('knex'); 
+const knex = require('knex');
+const { Client } = require('pg'); 
 //const bcrypt = require('bcrypt-nodejs')
 
-const clock = require('./controllers/clock')
+const clock = require('./clock')
 /* const signin = require('./controllers/signin') */
-const clockcard = require('./controllers/clockcard')
-const status = require('./controllers/status')
-const update = require('./controllers/update')
+const clockcard = require('./clockcard')
+const status = require('./status')
+const update = require('./update')
 //const image = require('./controllers/image')
-const { Client } = require('pg');
+
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
