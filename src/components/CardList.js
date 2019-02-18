@@ -24,11 +24,13 @@ class CardList extends Component {
 componentDidMount() {
   console.log(this.state)
   this.setState({ isLoading: true });
-  fetch('https://landbelectrical.herokuapp.com/contractors',{
+  fetch("https://landbelectrical.herokuapp.com/contractors",
+  {
     //mode: 'no-cors',
-    method: 'GET',
+    method: "GET",
     headers: {
-      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
     }})
 
       .then(response => response.json())
@@ -63,7 +65,7 @@ render () {
   }
   else{
 
-    var data = conts.map(person => {
+    let data = conts.map(person => {
       console.log(person.firstname);
       console.log(person.id);
     });
