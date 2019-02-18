@@ -26,7 +26,7 @@ componentDidMount() {
   this.setState({ isLoading: true });
   fetch("https://landbelectrical.herokuapp.com/contractors",
   {
-    //mode: 'no-cors',
+    mode: 'cors',
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

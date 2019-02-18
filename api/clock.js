@@ -16,7 +16,7 @@ const handleClock = (req, res, db) => {
     .then(console.log)
     .then(clockevent => {res.json(clockevent)})
     .catch (err => res.status(400).json('unable to register'))
-
+}
 
 
 module.exports = {

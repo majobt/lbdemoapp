@@ -1,4 +1,3 @@
-
 const handleContractorGet = (req, res, db) => {
     const { qrcode } = req.params;
     db.select('*').from('contractors').where({ qrcode })
