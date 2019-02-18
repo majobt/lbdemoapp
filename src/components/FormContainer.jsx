@@ -45,9 +45,9 @@ class FormContainer extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
         let qrcode = this.state.code;
-        console.log(qrcode.qrcode);
+       
         console.log(this.state.code.qrcode);
-        if (qrcode.toLowerCase() === 'firstday')
+        if ((qrcode.toLowerCase()) === 'firstday')
         {
             return this.setState({
                 firstday: true
