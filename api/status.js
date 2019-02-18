@@ -43,12 +43,11 @@ const getTodayIndiv = (req, res, db,) => {
 }
 
 const getActiveContractors = (req, res, db) => {
-    //console.log(req.headers);
+    console.log(req.headers);
     db.select('*').from('contractors').where('active', true)
         .then(conts => {
             console.log(conts)
             if (conts.length) {
-                console.log("Active Contractors sent OK")
                 return res.json(conts);
             } else {
                 return res.status(400).json("No Active Contractors")
