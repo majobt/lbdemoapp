@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'tachyons';
+import 'tachyons/css/tachyons.min.css'
 import Navigation from './components/Navigation';
 import Main from './components/Main';
 import './App.css';

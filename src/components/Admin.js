@@ -3,7 +3,7 @@ import React from 'react'
 import { Link /* Route */ } from 'react-router-dom'
 
 const handleUpdateCodes = () => {
-     fetch(`http://localhost:3002/UpdateCodes`)
+    fetch(`https://landbelectrical.herokuapp.com/UpdateCodes`)
         .then(response => response.json())
         .then(console.log)
 }

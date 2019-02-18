@@ -9,7 +9,7 @@ import TextArea from "./TextArea";
 
 
 
-class ClockInOut extends Component {
+class NewClockInOut extends Component {
 
     constructor(props) {
         super(props);
@@ -18,10 +18,12 @@ class ClockInOut extends Component {
         this.state = {
             tryagain:false,
             Contractor: {
-                name: '',
+                firstname: '',
+                lastname: '',
+                phonenumber:'',
                 id: '',
                 active: '',
-                qrcodeused: this.props.match.params.qrcode,
+                qrcodeused: '',
                 clocktype: '',
                 clocknote: '',
                 ipaddress: '',
@@ -38,8 +40,8 @@ class ClockInOut extends Component {
     }
     
         
-    componentDidMount() {
-        fetch(`https://landbelectrical.herokuapp.com/${this.props.match.params.qrcode}`)
+    /* componentDidMount() {
+        fetch(`https://landbelectrical.herokuapp.com/ClockInOut/${this.props.match.params.qrcode}`)
             .then(response => response.json())      
             .then(data => {this.setState({
                 Contractor: {
@@ -54,8 +56,21 @@ class ClockInOut extends Component {
                 cookie: ''
             }})})
             .then(console.log("hello" + this.state));
-    }
+    } */
 
+    handleInput(e) {
+        let value = e.target.value;
+        let name = e.target.name;
+        this.setState(
+            prevState => ({
+                code: {
+                    ...prevState.code,
+                    [name]: value
+                }
+            }),
+            () => console.log("input " + this.state.code)
+        );
+    }
  
     handleTextArea(e) {
         let value = e.target.value;
@@ -74,13 +89,6 @@ class ClockInOut extends Component {
         this.setState(Object.assign(this.state.Contractor, {
             clocktype: value2
         }))
-        
-        console.log(this.state.id);
-        console.log(this.state.name);
-        console.log(this.state.active);
-        console.log(this.state.qrcodeused);
-        console.log(this.state.clocknote);
-        console.log(this.state.clocktype);
         this.handleFormSubmit()
             }
 
@@ -92,34 +100,38 @@ class ClockInOut extends Component {
         this.setState(Object.assign(this.state.Contractor, {
             clocktype: 'out'
         }))
-        console.log('id : ' + this.state.id +',');
-        console.log('name : ' + this.state.name + ',');
-        console.log('active : ' + this.state.active + ',');
-        console.log('qrcodeused : ' + this.state.qrcodeused + ',');
-        console.log('clocknote : ' + this.state.clocknote + ',');
-        console.log('clocktype : ' + this.state.clocktype);
+        
         this.handleFormSubmit()
                     }
 
     handleFormSubmit() {
         let clockEvent = this.state;
-        fetch(`https://landbelectrical.herokuapp.com/${this.props.match.params.qrcode}`, {
+        fetch(`https://landbelectrical.herokuapp.com/new`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clockEvent)})
+            body: JSON.stringify(clockEvent)
+        })
             .then(response => {
                 if (response.ok) {
-                    return response.json()
-                        .then(this.setState({ complete: true }))
-                                
-                } else {
-                    window.alert("Error clocking in! Please try again...");
-                    throw new Error('Something went wrong ...');
-                }
-            })
-            
-                 
-    } 
+                    fetch(`https://landbelectrical.herokuapp.com/ClockInOut/${this.props.match.params.qrcode}`, {
+                        method: 'post',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(clockEvent)})
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json()
+                                    .then(this.setState({ complete: true }))            
+                            } else {
+                                window.alert("Error clocking in! Please try again...");
+                                throw new Error('Something went wrong ...');
+                            }
+                        })
+                    } else {
+                        window.alert("Error clocking in! Please try again...");
+                        throw new Error('Something went wrong ...');           
+                            } 
+                        }
+            )}
 
     /* handleClearForm(e) {
         e.preventDefault();
@@ -155,6 +167,34 @@ class ClockInOut extends Component {
                     <div class="tc">
                         <h1 className= "mw5 f4 dark-gray ma1">Name: {this.state.Contractor.name}</h1>
                         <h2 className="mw5 f7 fw4 gray ma2">{`ID: ${this.state.Contractor.qrcodeused}/${this.state.Contractor.id}`} </h2>
+                <Input
+                    inputType={"text"}
+                    title={"First name"}
+                    name={"firstname"}
+                    value={this.state.Contractor.firstname}
+                    placeholder={"Enter your first name"}
+                    handleChange={this.handleInput}
+                />{" "}
+                
+
+                <Input
+                    inputType={"text"}
+                    title={"Surname"}
+                    name={"lastname"}
+                    value={this.state.Contractor.lastname}
+                    placeholder={"Enter your surname"}
+                    handleChange={this.handleInput}
+                />{" "}
+
+                <Input
+                    inputType={"text"}
+                    title={"Phone Number"}
+                    name={"phonenumber"}
+                    value={this.state.Contractor.phonenumber}
+                    placeholder={"Enter your phonenumber"}
+                    handleChange={this.handleInput}
+                />{" "}
+                 
                  <TextArea
                     title={"Optional note:"}
                     titlestyle={"mw f6 pa2 ma2 dark-gray"}

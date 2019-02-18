@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Card from './Card';
 //import { robots } from './robots';
 
-/* const contractors = fetch(`http://localhost:3002/contractors`)
+/* const contractors = fetch(`https://landbelectrical.herokuapp.com/contractors`)
   .then(response => response.json())
   .then(data => this.state.contractors.push(data))
   .then(console.log("this state contractors:"))
@@ -24,7 +24,7 @@ class CardList extends Component {
 componentDidMount() {
   console.log(this.state)
   this.setState({ isLoading: true });
-  fetch('http://localhost:3002/contractors',{
+  fetch('https://landbelectrical.herokuapp.com/contractors',{
     //mode: 'no-cors',
     method: 'GET',
     headers: {
@@ -82,7 +82,7 @@ render () {
               qrcode={cont.qrcode}
               firstname = {cont.firstname}
               lastname={cont.lastname}
-              url={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=http://localhost:3000/ClockInOut/${cont.qrcode}`}
+              url={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://landbelectrical.herokuapp.com/ClockInOut/${cont.qrcode}`}
               
               />
           );

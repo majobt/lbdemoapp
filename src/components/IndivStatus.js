@@ -24,7 +24,7 @@ class Status extends Component {
   componentDidMount() {
     console.log(this.state)
     this.setState({ isLoading: true });
-    fetch('http://localhost:3002/today/:id', {
+    fetch('https://landbelectrical.herokuapp.com/today/:id', {
       //mode: 'no-cors',
       method: 'GET',
       headers: {

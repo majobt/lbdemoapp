@@ -13,7 +13,8 @@ class FormContainer extends Component {
         this.state = {
             code: {
                 qrcode: "",
-                toClock: false
+                toClock: false,
+                firstday: false
             },
 
         };
@@ -46,14 +47,22 @@ class FormContainer extends Component {
         let qrcode = this.state.code;
         console.log(qrcode.qrcode);
         console.log(this.state.code.qrcode);
-        fetch(`http://localhost:3002/ClockInOut/${this.state.code.qrcode}`)
+        if (qrcode.toLowerCase() === 'firstday')
+        {
+            return this.setState({
+                firstday: true
+            })
+        } else {
+
+            fetch(`https://landbelectrical.herokuapp.com/ClockInOut/${this.state.code.qrcode}`)
             .then(response => response.json())
             .then(console.log)
-        this.setState({
+        return this.setState({
            toClock: true
         }
     
         )}
+    }
 
     
 
@@ -70,8 +79,9 @@ class FormContainer extends Component {
         if (this.state.toClock === true) {
              console.log(`Submitted qrcode:` + this.state.code.qrcode)
             return <Redirect to={`/ClockInOut/`+this.state.code.qrcode} />
-        }
-               
+        } else if (this.state.firstday === true) {
+            return <Redirect to={`/new`} />
+        } else {               
         return (
             <form className="container-fluid" onSubmit={this.handleFormSubmit}>
                 <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
@@ -99,7 +109,7 @@ class FormContainer extends Component {
                             </div>
                     </article>
             </form>
-        );
+        );}
     }
 }
 

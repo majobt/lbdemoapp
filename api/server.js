@@ -25,10 +25,14 @@ app.listen(port, function () {
 const db = knex({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: 'toby25',
-        database: 'lbappdb'
+        host: {
+            connectionString:process.env.DATABASE_URL,
+            ssl: true }
+        
+        //host: '127.0.0.1',
+        //user: 'postgres',
+        //password: '******',
+        //database: 'lbappdb'
     }
 });
 
@@ -51,6 +55,8 @@ app.get('/today/:id', (req, res) => { status.getTodayIndiv(req, res, db) })
 
 //UPDATES
 app.get('/UpdateCodes', (req, res) => { update.UpdateCodes(req, res, db) })
+app.get('/new', (req, res) => { update.newContractor(req, res, db) })
+  
 
 
 ///REGISTER
