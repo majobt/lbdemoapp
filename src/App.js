@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-
-import 'tachyons';cd
+import 'tachyons';
 import Navigation from './components/Navigation';
 import Main from './components/Main';
-
 import './App.css';
 //import NavOptions from './components/NavOptions';
 
