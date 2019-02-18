@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import 'tachyons';
+import 'tachyons';cd
 import Navigation from './components/Navigation';
 import Main from './components/Main';
 
