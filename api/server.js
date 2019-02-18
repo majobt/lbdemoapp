@@ -10,6 +10,15 @@ const clockcard = require('./controllers/clockcard')
 const status = require('./controllers/status')
 const update = require('./controllers/update')
 //const image = require('./controllers/image')
+const { Client } = require('pg');
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+});
+
+client.connect();
+
 
 const app = express();
 
@@ -35,6 +44,7 @@ const db = knex({
         //database: 'lbappdb'
     }
 });
+
 
 
 

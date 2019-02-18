@@ -55,7 +55,7 @@ const getActiveContractors = (req, res, db) => {
             }
         })
 
-        //.catch(err => res.status(400).json("Tech problems"))
+        .catch(err => res.status(400).json("Tech problems"))
 }
 
 
